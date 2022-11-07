@@ -1,0 +1,167 @@
+---
+title: "Challenge: visualize data from a single-cell RNA-seq experiment"
+subtitle: Hands-on adapted from [Orchestrating Single-Cell Analysis with R and Bioconductor](http://bioconductor.org/books/release/OSCA/)
+author: Hosna Baniadam and Nick Hirschmüller 
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+## What is this part of the hands-on about?
+
+Here we will start with a very basic single-cell RNA-seq workflow in Bioconductor applied to a peripheral blood mononuclear cell dataset from 10X genomics [(Zheng et al. 2017)](https://pubmed.ncbi.nlm.nih.gov/28091601/). 
+
+**Goals:**
+
+- Find out more about packages and functions you haven't used before
+- Explore a `SummarizedExperiment` 
+- Use what we learned to visualize the data 
+
+# Data loading
+
+```{r}
+library(BiocFileCache)
+bfc <- BiocFileCache(ask=FALSE)
+exprs.data <- bfcrpath(bfc, file.path(
+    "http://cf.10xgenomics.com/samples/cell-vdj/3.1.0",
+    "vdj_v1_hs_pbmc3",
+    "vdj_v1_hs_pbmc3_filtered_feature_bc_matrix.tar.gz"))
+untar(exprs.data, exdir=tempdir())
+
+library(DropletUtils)
+sce.pbmc <- read10xCounts(file.path(tempdir(), "filtered_feature_bc_matrix"))
+sce.pbmc <- splitAltExps(sce.pbmc, rowData(sce.pbmc)$Type)
+```
+
+# Quality control 
+
+```{r}
+unfiltered <- sce.pbmc
+```
+
+```{r}
+library(scater)
+is.mito <- grep("^MT-", rowData(sce.pbmc)$Symbol)
+stats <- perCellQCMetrics(sce.pbmc, subsets=list(Mito=is.mito))
+
+high.mito <- isOutlier(stats$subsets_Mito_percent, type="higher")
+low.adt <- stats$`altexps_Antibody Capture_detected` < nrow(altExp(sce.pbmc))/2
+
+discard <- high.mito | low.adt
+sce.pbmc <- sce.pbmc[,!discard]
+```
+
+```{r}
+colData(unfiltered) <- cbind(colData(unfiltered), stats)
+unfiltered$discard <- discard
+```
+
+**Challenge:**
+
+- We want to compare how the cells that we are discarding compare to the ones we keep in terms of total count, detected features, percentage of mitochondrial genes and ADT detected. What plots would you make to show that? Boxplot? Violinplot? Scatterplot? 
+- Try to put all the 4 plots together in one panel
+- 
+
+```{r}
+gridExtra::grid.arrange(
+    plotColData(unfiltered, y="sum", colour_by="discard") +
+        scale_y_log10() + ggtitle("Total count"),
+    plotColData(unfiltered, y="detected", colour_by="discard") +
+        scale_y_log10() + ggtitle("Detected features"),
+    plotColData(unfiltered, y="subsets_Mito_percent",
+        colour_by="discard") + ggtitle("Mito percent"),
+    plotColData(unfiltered, y="altexps_Antibody Capture_detected",
+        colour_by="discard") + ggtitle("ADT detected"),
+    ncol=2
+)
+```
+
+
+```{r}
+plotColData(unfiltered, x="sum", y="subsets_Mito_percent",
+    colour_by="discard") + scale_x_log10()
+```
+
+# Normalization
+
+```{r}
+library(scran)
+
+set.seed(1000)
+clusters <- quickCluster(sce.pbmc)
+sce.pbmc <- computeSumFactors(sce.pbmc, cluster=clusters)
+altExp(sce.pbmc) <- computeMedianFactors(altExp(sce.pbmc))
+sce.pbmc <- applySCE(sce.pbmc, logNormCounts)
+```
+
+```{r}
+par(mfrow=c(1,2))
+plot(librarySizeFactors(sce.pbmc), sizeFactors(sce.pbmc), pch=16,
+    xlab="Library size factors", ylab="Deconvolution factors", 
+    main="Gene expression", log="xy")
+plot(librarySizeFactors(altExp(sce.pbmc)), sizeFactors(altExp(sce.pbmc)), pch=16,
+    xlab="Library size factors", ylab="Median-based factors", 
+    main="Antibody capture", log="xy")
+```
+
+
+# Dimensionality reduction
+
+```{r}
+set.seed(100000)
+altExp(sce.pbmc) <- runTSNE(altExp(sce.pbmc))
+
+set.seed(1000000)
+altExp(sce.pbmc) <- runUMAP(altExp(sce.pbmc))
+```
+
+# Clustering 
+
+```{r}
+g.adt <- buildSNNGraph(altExp(sce.pbmc), k=10, d=NA)
+clust.adt <- igraph::cluster_walktrap(g.adt)$membership
+colLabels(altExp(sce.pbmc)) <- factor(clust.adt)
+```
+
+```{r}
+library(bluster)
+mod <- pairwiseModularity(g.adt, clust.adt, as.ratio=TRUE)
+
+library(pheatmap)
+pheatmap::pheatmap(log10(mod + 10), cluster_row=FALSE, cluster_col=FALSE,
+    color=colorRampPalette(c("white", "blue"))(101))
+```
+
+```{r}
+set.seed(1010010)
+subclusters <- quickSubCluster(sce.pbmc, clust.adt,
+    prepFUN=function(x) {
+        dec <- modelGeneVarByPoisson(x)
+        top <- getTopHVGs(dec, prop=0.1)
+        denoisePCA(x, dec, subset.row=top)
+    }, 
+    clusterFUN=function(x) {
+        g.gene <- buildSNNGraph(x, k=10, use.dimred = 'PCA')
+        igraph::cluster_walktrap(g.gene)$membership
+    }
+)
+```
+
+```{r}
+data.frame(
+    Cluster=names(subclusters),
+    Ncells=vapply(subclusters, ncol, 0L),
+    Nsub=vapply(subclusters, function(x) length(unique(x$subcluster)), 0L)
+)
+```
+
+How do we end our workflow? 
+
+
+
+
+
+
+
