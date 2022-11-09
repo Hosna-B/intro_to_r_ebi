@@ -1,0 +1,73 @@
+---
+title: "Learn how to explore datasets by visualization: Introduction to R and Bioconductor"
+author: Hosna Baniadam and Nick Hirschmüller 
+output:
+  BiocStyle::html_document:
+      toc: yes
+      toc_depth: 2
+      toc_float: yes
+      df_print: paged
+---
+
+# Project overview
+
+The goal of this project is to learn how to use R and ggplot to explore and visualise biological datasets. We will start with an introduction to data types and writing functions in R. We will then learn how to load a dataset in csv format to our R environment and put it in a tidy format using tidyr and dplyr packages. Moreover, we will learn how to produce plots and to change the aesthetics. We will finally learn about the SummarizedExperiment class and good coding practices. In the end, you can apply what you have learned to visualise and explore a single-cell RNA-seq dataset. 
+
+# Audience
+
+The hands-on is designed for wet lab biologists without a background in programming. The hands-on is separated into several R markdown files. We introduce the objectives and the milestones at the beginning of each R markdown so if you are already familiar with one subject, you can move on to the next. If you finish the hands-on early, you are welcome to follow the bonus R markdown to practise your visualisation skills on a single-cell RNA-seq dataset. 
+
+# Pre-requisites
+
+You will need R, RStudio and a few packages for the hands-on. You can follow this [link](https://carpentries-incubator.github.io/bioc-intro/setup.html) for the installation. 
+
+# Datasets / Experimental design
+
+In the tutorial part of the hands-on we will visualise part of the data published by Blackmore et al. (2017). 
+
+If you have already finished the tutorial part or are already familiar with the material, you can practise your visualisation skills on single-cell RNA-seq data of peripheral blood mononuclear cells (PBMC) from 10X Genomics Zheng et al. (2017).
+
+# Link to notebooks / Github pages
+
+The course material is provided on this [git repository](https://git.embl.de/baniadam/intro_to_r_ebi) 
+
+# Literature
+
+We use [Introduction to data analysis with R and Bioconductor](https://carpentries-incubator.github.io/bioc-intro/index.html) as the template for the course. The following sources were used in addition to build up on the material:
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [ggplot2 , elegant graphics for data analysis](https://ggplot2-book.org/)
+- [Orchestrating Single-Cell Analysis with Bioconductor](http://bioconductor.org/books/release/OSCA/)
+
+You are welcome to use the following resources on your own time to improve your coding skills: 
+
+- For good coding practices: 
+
+  + [The Tidyverse Style Guide](https://style.tidyverse.org/index.html)
+  + [Efficient R Programming](https://csgillespie.github.io/efficientR/)
+  + [Bioconductor Style Guide](https://contributions.bioconductor.org/r-code.html#r-code)
+  
+- [Git for R users](https://happygitwithr.com/index.html)
+
+# Milestones
+
+- Familiarise yourself with RStudio environment and learn how to start a new R project
+- Learn how to install packages and find out information about each package
+- Learn about each data type in R, how to assign a value to a variable and how to write a function 
+- Learn how to load external data from a .csv file into a dataframe and manipulate it with `dplyr` and `tidyr` packages
+- Learn how to produce plots using `ggplot2` package and modify the aesthetics of your plot
+- Learn about the `SummarizedExperiment` class which is used in omics analysis
+- Get an overview of good programming practices and how to write reproducible workflows
+
+# Knitted R Markdowns
+
+- 01-r-rstudio
+- 02-starting-with-r
+- 03-starting-with-data
+- 04-dplyr
+- 05-visualization
+- 06-next-steps
+- [07-challenge](https://www.huber.embl.de/users/baniadam/intro_to_r_course/07-challenge.html)
+
+
+
