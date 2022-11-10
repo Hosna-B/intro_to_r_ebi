@@ -3,30 +3,34 @@ title: "R and RStudio"
 subtitle: Hands-on adapted from [Introduction to R and Bioconductor](https://carpentries-incubator.github.io/bioc-intro/index.html)
 author: Hosna Baniadam and Nick Hirschmüller 
 output:
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: true
+  BiocStyle::html_document:
+      toc: yes
+      toc_depth: 2
+      toc_float: yes
+      df_print: paged
 ---
 
-## What is this part of the hands-on about?
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, cache = FALSE)
+```
+
+# What is this part of the hands-on about?
 
 **Questions:**
 
-- What are R and RStudio?
+- What are R and RStudio? 
 
 **Objectives:**
 
 - Describe the purpose of the RStudio Script, Console, Environment, and Plots panes.
 - Organise files and directories for a set of analyses as an R project, and understand the purpose of the working directory.
 - Use the built-in RStudio help interface to search for more information on R functions.
-- Demonstrate how to provide sufficient information for troubleshooting with the R user community.
 
 **Keypoints:**
 
-- Start using R and RStudio
+- Setting up R and RStudio
 
-## What is R? What is RStudio?
+# What is R? What is RStudio?
 
 The term [R](https://www.r-project.org/) is used to refer to the
 *programming language*, the *environment for statistical computing*
@@ -34,22 +38,17 @@ and *the software* that interprets the scripts written using it.
 
 [RStudio](https://rstudio.com) is currently a very popular way to not
 only write your R scripts but also to interact with the R
-software[^plainr]. To function correctly, RStudio needs R and
+software. To function correctly, RStudio needs R and
 therefore both need to be installed on your computer.
-
-[^plainr]: As opposed to using R directly from the command line
-    console. There exist other software that interface and integrate
-    with R, but RStudio is particularly well suited for beginners
-    while providing numerous very advanced features.
 
 The [RStudio IDE Cheat
 Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 provides much more information than will be covered here, but can be
 useful to learn keyboard shortcuts and discover new features.
 
-## Why learn R?
+# Why learn R?
 
-### R does not involve lots of pointing and clicking, and that's a good thing
+## R does not involve lots of pointing and clicking, and that's a good thing
 
 The learning curve might be steeper than with other software, but with
 R, the results of your analysis do not rely on remembering a
@@ -67,7 +66,7 @@ Working with scripts forces you to have a deeper understanding of what
 you are doing, and facilitates your learning and comprehension of the
 methods you use.
 
-### R code is great for reproducibility
+## R code is great for reproducibility
 
 Reproducibility means that someone else (including your future self) can
 obtain the same results from the same dataset when using the same
@@ -82,23 +81,21 @@ An increasing number of journals and funding agencies expect analyses
 to be reproducible, so knowing R will give you an edge with these
 requirements.
 
-### R is interdisciplinary and extensible
+## R is interdisciplinary and extensible
 
-With 10000+ packages[^whatarepkgs] that can be installed to extend its
+With 10000+ packages that can be installed to extend its
 capabilities, R provides a framework that allows you to combine
 statistical approaches from many scientific disciplines to best suit
 the analytical framework you need to analyse your data. For instance,
 R has packages for image analysis, GIS, time series, population
 genetics, and a lot more.
 
-[^whatarepkgs]: i.e. add-ons that confer R with new functionality,
-    such as bioinformatics data analysis.
 
 ```{r, fig.cap = "Exponential increase of the number of packages available on [CRAN](https://cran.r-project.org/), the Comprehensive R Archive Network. From the R Journal, Volume 10/2, December 2018.", echo = FALSE, message = FALSE}
 knitr::include_graphics("../fig/cran.png")
 ```
 
-### R works on data of all shapes and sizes
+## R works on data of all shapes and sizes
 
 The skills you learn with R scale easily with the size of your
 dataset. Whether your dataset has hundreds or millions of lines, it
@@ -112,14 +109,14 @@ R can connect to spreadsheets, databases, and many other data formats,
 on your computer or on the web.
 
 
-### R produces high-quality graphics
+## R produces high-quality graphics
 
 The plotting functionalities in R are extensive, and allow you to adjust
 any aspect of your graph to convey most effectively the message from
 your data.
 
 
-### R has a large and welcoming community
+## R has a large and welcoming community
 
 Thousands of people use R daily. Many of them are willing to help you
 through mailing lists and websites such as [Stack
@@ -128,28 +125,21 @@ community](https://community.rstudio.com/). These broad user communities
 extend to specialised areas such as bioinformatics. One such subset of the R community is [Bioconductor](https://bioconductor.org/), a scientific project for analysis and comprehension "of data from current and emerging biological assays." This workshop was developed by members of the Bioconductor community; for more information on Bioconductor, please see the companion workshop ["The Bioconductor Project"](https://carpentries-incubator.github.io/bioc-project/). 
 
 
-### Not only is R free, but it is also open-source and cross-platform
+## Not only is R free, but it is also open-source and cross-platform
 
 Anyone can inspect the source code to see how R works. Because of this
 transparency, there is less chance for mistakes, and if you (or
 someone else) find some, you can report and fix bugs.
 
-## Knowing your way around RStudio
+# Knowing your way around RStudio
 
 Let's start by learning about [RStudio](https://www.rstudio.com/),
 which is an Integrated Development Environment (IDE) for working with
 R.
 
-The RStudio IDE open-source product is free under the [Affero General
-Public License (AGPL) v3](https://www.gnu.org/licenses/agpl-3.0.en.html).
-The RStudio IDE is also available with a commercial license and
-priority email support from Posit, Inc.
-
 We will use the RStudio IDE to write code, navigate the files on our
 computer, inspect the variables we are going to create, and visualise
-the plots we will generate. RStudio can also be used for other things
-(e.g., version control, developing packages, writing Shiny apps) that
-we will not cover during the workshop.
+the plots we will generate. 
 
 
 ```{r, results='markup', fig.cap="RStudio interface screenshot. Clockwise from top left: Source, Environment/History, Files/Plots/Packages/Help/Viewer, Console.", echo=FALSE, purl=FALSE, out.width='100%', fig.align='center'}
@@ -173,7 +163,7 @@ many shortcuts, **autocompletion**, and **highlighting** for the major
 file types you use while developing in R, RStudio will make typing
 easier and less error-prone.
 
-## Getting set up
+# Getting set up
 
 It is good practice to keep a set of related data, analyses, and text
 self-contained in a single folder, called the **working
@@ -193,18 +183,18 @@ break. Go through the steps for creating an "R Project" for this
 tutorial below.
 
 1. Start RStudio.
-2. Under the `File` menu, click on `New project`. Choose `New directory`, then
+2. Under the `File` menu (top left corner), click on `New project`. Choose `New directory`, then
   `New project`.
 3. Enter a name for this new folder (or "directory"), and choose a
    convenient location for it. This will be your **working directory**
    for this session (or whole course) (e.g., `bioc-intro`).
 4. Click on `Create project`.
-5. (Optional) Set Preferences to 'Never' save workspace in RStudio.
 
-RStudio's default preferences generally work well, but saving a workspace to
-.RData can be cumbersome, especially if you are working with larger datasets.
-To turn that off, go to Tools --> 'Global Options' and select the 'Never' option
-for 'Save workspace to .RData' on exit.
+
+Optionally, you can now navigate to `Tools` -> `Global Options` and select the 
+‘Never’ option for ‘Save workspace to .RData’ on exit. This will prevent RStudio 
+from saving your workspace to `.RData` when you close RStudio, which can become
+very cumbersome and slow when working with larger datasets.
 
 ```{r, results='markup', fig.cap="Set 'Save workspace to .RData on exit' to 'Never'", echo=FALSE, purl=FALSE, out.width='70%', fig.align='center'}
 knitr::include_graphics("../fig/rstudio-preferences.png")
@@ -212,14 +202,16 @@ knitr::include_graphics("../fig/rstudio-preferences.png")
 
 To avoid [character encoding issues between Windows and other operating
 systems](https://yihui.name/en/2018/11/biggest-regret-knitr/), we are
-going to set UTF-8 by default:
+going to set `UTF-8` by default. To do this, navigate to 
+`Tools` -> `Global Options` -> `Code` -> `Saving` and then chose `UTF-8` as the 
+default text encoding. 
 
 
 ```{r, results='markup', fig.cap="Set the default text encoding to UTF-8 to save us headache in the coming future. (Figure from the link above).", echo=FALSE, purl=FALSE, out.width='70%', fig.align='center'}
 knitr::include_graphics("../fig/utf8.png")
 ```
 
-### Organizing your working directory
+## Organizing your working directory
 
 Using a consistent folder structure across your projects will help keep things
 organised, and will also make it easy to find/file things in the future. This
@@ -227,14 +219,11 @@ can be especially helpful when you have multiple projects. In general, you may
 create directories (folders) for **scripts**, **data**, and **documents**.
 
  - **`data/`** Use this folder to store your raw data and intermediate
-   datasets you may create for the need of a particular analysis. For
-   the sake of transparency and
-   [provenance](https://en.wikipedia.org/wiki/Provenance), you should
+   datasets you may create for the need of a particular analysis. You should
    *always* keep a copy of your raw data accessible and do as much of
-   your data cleanup and preprocessing programmatically (i.e., with
-   scripts, rather than manually) as possible. Separating raw data
-   from processed data is also a good idea. For example, you could
-   have files `data/raw/tree_survey.plot1.txt` and `...plot2.txt` kept
+   your data cleanup and preprocessing programmatically as possible. 
+   Separating raw data from processed data is also a good idea. For example, 
+   you could have files `data/raw/tree_survey.plot1.txt` and `...plot2.txt` kept
    separate from a `data/processed/tree.survey.csv` file generated by
    the `scripts/01.preprocess.tree_survey.R` script.
  - **`documents/`** This would be a place to keep outlines, drafts,
@@ -260,75 +249,15 @@ CSV files, and `fig_output/` folder for the figures that we will save.
 
 Under the `Files` tab on the right of the screen, click on `New Folder` and
 create a folder named `data` within your newly created working directory
-(e.g., `~/bioc-intro/data`). (Alternatively, type `dir.create("data")` at
-your R console.) Repeat these operations to create a `data_output/` and a
-`fig_output` folders.
-
-We are going to keep the script in the root of our working directory
-because we are only going to use one file and it will make things
-easier.
-
-Your working directory should now look like this:
+(e.g., `~/bioc-intro/data`). Repeat these operations to create a `data_output/` 
+and a `fig_output` folders.
+Your working directory should now look similar to this:
 
 ```{r, results='markup',fig.cap="How it should look like at the beginning of this lesson", echo=FALSE, purl=FALSE, out.width='100%', fig.align='center'}
 knitr::include_graphics("../fig/r-starting-how-it-should-look-like.png")
 ```
 
-
-The most important aspect of a well defined and well documented
-project directory is to enable someone unfamiliar with the
-project[^futureself] to
-
-1. understand what the project is about, what data are available, what
-   analyses were run, and what results were produced and, most
-   importantly to
-
-2. repeat the analysis over again - with new data, or changing some
-   analysis parameters.
-
-[^futureself]: That someone could be, and very likely will be your
-    future self, a couple of months or years after the analyses were
-    run.
-
-
-### The working directory
-
-The working directory is an important concept to understand. It is the
-place from where R will be looking for and saving the files. When you
-write code for your project, it should refer to files in relation to
-the root of your working directory and only need files within this
-structure.
-
-Using RStudio projects makes this easy and ensures that your working
-directory is set properly. If you need to check it, you can use
-`getwd()`. If for some reason your working directory is not what it
-should be, you can change it in the RStudio interface by navigating in
-the file browser where your working directory should be, and clicking
-on the blue gear icon `More`, and select `Set As Working Directory`.
-Alternatively you can use `setwd("/path/to/working/directory")` to
-reset your working directory. However, your scripts should not include
-this line because it will fail on someone else's computer.
-
-**Example**
-
-The schema below represents the working directory `bioc-intro` with the
-`data` and `fig_output` sub-directories, and 2 files in the latter:
-
-```
-bioc-intro/data/
-          /fig_output/fig1.pdf
-          /fig_output/fig2.png
-```
-
-If we were in the working directory, we could refer to the `fig1.pdf`
-file using the relative path `bioc-intro/fig_output/fig1.pdf` or the
-absolute path `/home/user/bioc-intro/fig_output/fig1.pdf`.
-
-If we were in the `data` directory, we would use the relative path
-`../fig_output/fig1.pdf` or the same absolute path
-`/home/user/bioc-intro/fig_output/fig1.pdf`.
-
-## Interacting with R
+# Interacting with R
 
 The basis of programming is that we write down instructions for the
 computer to follow, and then we tell the computer to follow those
@@ -339,7 +268,7 @@ instructions by *executing* (also called *running*) those commands.
 
 There are two main ways of interacting with R: by using the
 **console** or by using **scripts** (plain text files that contain
-your code). The console pane (in RStudio, the bottom left panel) is
+your code). The console panel (in RStudio, the bottom left panel) is
 the place where commands written in the R language can be typed and
 executed immediately by the computer. It is also where the results
 will be shown for commands that have been executed. You can type
@@ -359,18 +288,9 @@ by using the `Ctrl` + `Enter` shortcut (on Macs, `Cmd` + `Return` will
 work, too). The command on the current line in the script (indicated
 by the cursor) or all of the commands in the currently selected text
 will be sent to the console and executed when you press `Ctrl` +
-`Enter`. You can find other keyboard shortcuts in this [RStudio
-cheatsheet about the RStudio
-IDE](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf).
+`Enter`.
 
-At some point in your analysis you may want to check the content of a
-variable or the structure of an object, without necessarily keeping a
-record of it in your script. You can type these commands and execute
-them directly in the console.  RStudio provides the `Ctrl` + `1` and
-`Ctrl` + `2` shortcuts allow you to jump between the script and the
-console panes.
-
-If R is ready to accept commands, the R console shows a `>` prompt. If
+If R console is ready to accept commands, the R console shows a `>` prompt. If
 it receives a command (by typing, copy-pasting or sending from the script
 editor using `Ctrl` + `Enter`), R will try to execute it, and when
 ready, will show the results and come back with a new `>` prompt to
@@ -386,13 +306,9 @@ thought you finished typing your command, click inside the console
 window and press `Esc`; this will cancel the incomplete command and
 return you to the `>` prompt.
 
-## Seeking help
+# Seeking help
 
-### Use the built-in RStudio help interface to search for more information on R functions
-
-```{r rstudiohelp, fig.cap="RStudio help interface.", results='markup', echo=FALSE, purl=FALSE, out.width='70%', fig.align='center'}
-knitr::include_graphics("../fig/rstudiohelp.png")
-```
+## Use the built-in RStudio help interface to search for more information on R functions
 
 One of the fastest ways to get help, is to use the RStudio help
 interface. This panel by default can be found at the lower right hand
@@ -401,41 +317,25 @@ panel of RStudio. As seen in the screenshot, by typing the word
 might be interested in. The description is then shown in the display
 window.
 
-### I know the name of the function I want to use, but I'm not sure how to use it
-
-If you need help with a specific function, let's say `barplot()`, you
+If you need help with a specific function, let's say `mean()`, you
 can type:
 
 ```{r, eval=FALSE, purl=FALSE}
-?barplot
+?mean
 ```
 
-If you just need to remind yourself of the names of the arguments, you can use:
+This will open up the `Help` panel, and provide detailed information what the
+function actually does and what arguments it expects. 
 
-```{r, eval=FALSE, purl=FALSE}
-args(lm)
+```{r rstudiohelp, fig.cap="RStudio help interface.", results='markup', echo=FALSE, purl=FALSE, out.width='70%', fig.align='center'}
+knitr::include_graphics("../fig/rstudiohelp.png")
 ```
 
-### I want to use a function that does X, there must be a function for it but I don't know which one...
-
-If you are looking for a function to do a particular task, you can use the
-`help.search()` function, which is called by the double question mark `??`.
-However, this only looks through the installed packages for help pages with a
-match to your search request
-
-```{r, eval=FALSE, purl=FALSE}
-??kruskal
-```
-
-If you can't find what you are looking for, you can use
-the [rdocumentation.org](http://www.rdocumentation.org) website that searches
-through the help files across all packages available.
-
-Finally, a generic Google or internet search "R \<task\>" will often either send
+A generic Google search "R \<task\>" will often either send
 you to the appropriate package documentation or a helpful forum where someone
 else has already asked your question.
 
-### I am stuck... I get an error message that I don't understand
+## I am stuck... I get an error message that I don't understand
 
 Start by googling the error message. However, this doesn't always work very well
 because often, package developers rely on the error catching provided by R. You
@@ -444,123 +344,12 @@ problem (e.g. "subscript out of bounds"). If the message is very generic, you
 might also include the name of the function or package you're using in your
 query.
 
-However, you should check Stack Overflow. Search using the `[r]` tag. Most
-questions have already been answered, but the challenge is to use the right
-words in the search to find the
-answers:
+# R packages
 
-[http://stackoverflow.com/questions/tagged/r](http://stackoverflow.com/questions/tagged/r)
+## Installing packages
 
-The [Introduction to R](http://cran.r-project.org/doc/manuals/R-intro.pdf) can
-also be dense for people with little programming experience but it is a good
-place to understand the underpinnings of the R language.
-
-The [R FAQ](http://cran.r-project.org/doc/FAQ/R-FAQ.html) is dense and technical
-but it is full of useful information.
-
-### Asking for help
-
-The key to receiving help from someone is for them to rapidly grasp
-your problem. You should make it as easy as possible to pinpoint where
-the issue might be.
-
-Try to use the correct words to describe your problem. For instance, a
-package is not the same thing as a library. Most people will
-understand what you meant, but others have really strong feelings
-about the difference in meaning. The key point is that it can make
-things confusing for people trying to help you. Be as precise as
-possible when describing your problem.
-
-If possible, try to reduce what doesn't work to a simple *reproducible
-example*. If you can reproduce the problem using a very small data
-frame instead of your 50000 rows and 10000 columns one, provide the
-small one with the description of your problem. When appropriate, try
-to generalise what you are doing so even people who are not in your
-field can understand the question. For instance instead of using a
-subset of your real dataset, create a small (3 columns, 5 rows)
-generic one. For more information on how to write a reproducible
-example see [this article by Hadley
-Wickham](http://adv-r.had.co.nz/Reproducibility.html).
-
-To share an object with someone else, if it's relatively small, you
-can use the function `dput()`. It will output R code that can be used
-to recreate the exact same object as the one in memory:
-
-```{r, results='show', purl=FALSE}
-## iris is an example data frame that comes with R and head() is a
-## function that returns the first part of the data frame
-dput(head(iris))
-```
-
-If the object is larger, provide either the raw file (i.e., your CSV
-file) with your script up to the point of the error (and after
-removing everything that is not relevant to your
-issue). Alternatively, in particular if your question is not related
-to a data frame, you can save any R object to a file[^export]:
-
-```{r, eval=FALSE, purl=FALSE}
-saveRDS(iris, file="/tmp/iris.rds")
-```
-
-The content of this file is however not human readable and cannot be
-posted directly on Stack Overflow. Instead, it can be sent to someone
-by email who can read it with the `readRDS()` command (here it is
-assumed that the downloaded file is in a `Downloads` folder in the
-user's home directory):
-
-```{r, eval=FALSE, purl=FALSE}
-some_data <- readRDS(file="~/Downloads/iris.rds")
-```
-
-Last, but certainly not least, **always include the output of `sessionInfo()`**
-as it provides critical information about your platform, the versions of R and
-the packages that you are using, and other information that can be very helpful
-to understand your problem.
-
-```{r, results='show', purl=FALSE}
-sessionInfo()
-```
-
-### More resources
-
-- The [Posting Guide](http://www.r-project.org/posting-guide.html) for
-  the R mailing lists.
-
-- [How to ask for R
-  help](http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html)
-  useful guidelines.
-
-- [This blog post by Jon
-  Skeet](http://codeblog.jonskeet.uk/2010/08/29/writing-the-perfect-question/)
-  has quite comprehensive advice on how to ask programming questions.
-
-- The [reprex](https://cran.rstudio.com/web/packages/reprex/) package
-  is very helpful to create reproducible examples when asking for
-  help. The rOpenSci community call "How to ask questions so they get
-  answered" ([Github
-  link](https://github.com/ropensci/commcalls/issues/14) and [video
-  recording](https://vimeo.com/208749032)) includes a presentation of
-  the reprex package and of its philosophy.
-
-## R packages
-
-### Loading packages
-
-As we have seen above, R packages play a fundamental role in R. The
-make use of a package's functionality, assuming it is installed, we
-first need to load it to be able to use it. This is done with the
-`library()` function. Below, we load `ggplot2`.
-
-```{r loadp, eval=FALSE, purl=FALSE}
-library("ggplot2")
-```
-
-### Installing packages
-
-The default package repository is The *Comprehensive R Archive
-Network* (CRAN), and any package that is available on CRAN can be
-installed with the `install.packages()` function. Below, for example,
-we install the `dplyr` package that we will learn about later.
+Many packages can simply be installed by calling the `install.packages()` function. 
+Below, for example, we install the `dplyr` package that we will learn about later.
 
 ```{r craninstall, eval=FALSE, purl=FALSE}
 install.packages("dplyr")
@@ -569,39 +358,34 @@ install.packages("dplyr")
 This command will install the `dplyr` package as well as all its
 dependencies, i.e. all the packages that it relies on to function.
 
-
-Another major R package repository is maintained by Bioconductor. [Bioconductor packages](https://bioconductor.org/packages/release/BiocViews.html#___Software) are managed and installed using a dedicated package,
-namely `BiocManager`, that can be installed from CRAN with
+**Bioconductor** packages, are installed from a specific repository and need a
+dedicated package to be managed and installed. It can be installed by running:
 
 ```{r, eval = FALSE}
 install.packages("BiocManager")
 ```
 
 Individual packages such as `SummarizedExperiment` (we will use it
-later), `DESeq2` (for RNA-Seq analysis), and any others from either Bioconductor or CRAN can then be
+later) and any others from either Bioconductor or CRAN can then be
 installed with `BiocManager::install`.
 
 ```{r, eval = FALSE}
 BiocManager::install("SummarizedExperiment")
-BiocManager::install("DESeq2")
 ```
 
-By default, `BiocManager::install()` will also check all your installed packages and see if there are newer versions available. If there are, it will show them to you and ask you if you want to `Update all/some/none? [a/s/n]:` and then wait for your answer. While you should strive to have the most up-to-date package versions, in practice we recommend only updating packages in a fresh R session before any packages are loaded.
+By default, `BiocManager::install()` will also check all your installed packages and see if there are newer versions available. If there are, it will show them to you and ask you if you want to `Update all/some/none? [a/s/n]:` and then wait for your answer. While you should strive to have the most up-to-date package versions, in practice we recommend only updating packages in a fresh R session before any packages are loaded. Depending on how many packages you have installed, updating
+them can take a long time.
 
+## Loading packages
 
-## Some final tips
+After installing packages, we can load them to use the functions that they offer.
+This is done with the
+`library()` function. Below, we load `ggplot2`.
+```{r loadp, eval=FALSE, purl=FALSE}
+library("ggplot2")
+```
 
-- It is recommended to save the object in an RDS file instead of saving them as 
-RData. When loading an RDS file, you can set the name of the object you are 
-loading. But with objects stored in an RData, this can't be done. This might rewrite
-some objects in the environment if they have the same name as the object that is 
-being loaded. 
-
-- Regarding file naming, spaces are allowed but not recommended
-
-- Difference between _package_ and _library_ in R
-
-- Version control source
-
-- R markdown vs R and knitting  
+# Outlook
+You should now have an idea how to use R and RStudio. You can now move on to
+the next lecture to actually start coding in R :).
 
