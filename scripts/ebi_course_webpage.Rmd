@@ -61,12 +61,12 @@ You are welcome to use the following resources on your own time to improve your 
 
 # Knitted R Markdowns
 
-- 01-r-rstudio
-- 02-starting-with-r
-- 03-starting-with-data
-- 04-dplyr
-- 05-visualization
-- 06-next-steps
+- [01-r-rstudio](https://www.huber.embl.de/users/baniadam/intro_to_r_course/01-r-rstudio.html)
+- [02-starting-with-r](https://www.huber.embl.de/users/baniadam/intro_to_r_course/02-starting-with-r.html)
+- [03-starting-with-data](https://www.huber.embl.de/users/baniadam/intro_to_r_course/03-starting-with-data.html)
+- [04-dplyr](https://www.huber.embl.de/users/baniadam/intro_to_r_course/04-dplyr.html)
+- [05-visualization](https://www.huber.embl.de/users/baniadam/intro_to_r_course/05-visualization.html)
+- [06-next-steps](https://www.huber.embl.de/users/baniadam/intro_to_r_course/06-next-steps.html)
 - [07-challenge](https://www.huber.embl.de/users/baniadam/intro_to_r_course/07-challenge.html)
 
 

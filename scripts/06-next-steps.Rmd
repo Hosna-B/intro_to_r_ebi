@@ -315,7 +315,3 @@ affecting the other structures!
 
 - They are used in many Bioconductor packages.
 
-If you follow the next training focused on RNA sequencing analysis,
-you will learn to use the Bioconductor `DESeq2` package to do some
-differential expression analyses.  The whole analysis of the `DESeq2`
-package is handled in a `SummarizedExperiment`.

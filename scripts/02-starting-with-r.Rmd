@@ -14,8 +14,6 @@ output:
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, cache = FALSE)
 ```
 
-
-
 # What is this part of the hands-on about?
 
 **Questions:**
@@ -496,6 +494,7 @@ argument to `TRUE`:
 ```{r}
 sample(1:5, 10, replace = TRUE)
 ```
+
 # Outlook
 Now that we have learned how to write scripts, and the basics of R's
 data structures, we are ready to start working with larger data, and
