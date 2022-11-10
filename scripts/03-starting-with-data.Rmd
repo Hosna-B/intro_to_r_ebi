@@ -80,7 +80,7 @@ this folder already exists.
 ```{r, eval = TRUE}
 # you may have to copy this command and manually paste it into your console to download the data.
 download.file(url = "https://github.com/Bioconductor/bioconductor-teaching/raw/master/data/GSE96870/rnaseq.csv",
-              destfile = "data/rnaseq.csv")
+              destfile = "../data/rnaseq.csv")
 ```
 
 You are now ready to load the data:
@@ -458,7 +458,7 @@ directory, we would execute:
 
 ```{r, eval = FALSE}
 # you may have to copy this command and manually paste it into your console to save the data.
-write.csv(rna, file = "data_output/my_rna.csv")
+write.csv(rna, file = "../data_output/my_rna.csv")
 ```
 
 This new csv file can now be shared with other collaborators who
