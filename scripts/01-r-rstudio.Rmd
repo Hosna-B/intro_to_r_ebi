@@ -251,13 +251,7 @@ Under the `Files` tab on the right of the screen, click on `New Folder` and
 create a folder named `data` within your newly created working directory
 (e.g., `~/bioc-intro/data`). Repeat these operations to create a `data_output/` 
 and a `fig_output` folders.
-
-To create an R script, click on  `New Blank File` in the `Files` tab and then 
-select `R Script`. Give it a suitable name and save it in the root of our working 
-directory because we are only going to use one file and it will make things
-easier.
-
-Your working directory should now look like this:
+Your working directory should now look similar to this:
 
 ```{r, results='markup',fig.cap="How it should look like at the beginning of this lesson", echo=FALSE, purl=FALSE, out.width='100%', fig.align='center'}
 knitr::include_graphics("../fig/r-starting-how-it-should-look-like.png")
